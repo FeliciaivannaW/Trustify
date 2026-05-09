@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "features": "Fitur",
+    "hotnews": "HotNews",
+    "scamshield": "ScamShield",
+    "smartcontract": "SmartContract",
+    "imagetruth": "ImageTruth",
+    "reviewguard": "ReviewGuard",
+    "callalert": "CallAlert",
+    "hoaxlens": "HoaxLens",
+    "pinjolcheck": "PinjolCheck",
+    "lowonganaman": "LowonganAman",
+    "wifisecure": "WiFiSecure",
+    "trustscore": "TrustScore",
+    "others": "Lainnya"
+  },
+  "hero": {
+    "title": "Trustify",
+    "subtitle": "AI Digital Safety Assistant",
+    "desc": "Bantu masyarakat Indonesia mendeteksi scam, phishing, hoax, dan manipulasi digital sebelum menjadi korban.",
+    "cta_start": "Mulai Cek",
+    "cta_features": "Lihat Fitur",
+    "tagline": "Cek dulu sebelum percaya."
+  },
+  "problems": {
+    "title": "Ancaman Digital di Indonesia",
+    "desc": "Jutaan masyarakat Indonesia menjadi korban penipuan digital setiap tahun.",
+    "phishing": "Phishing",
+    "phishing_desc": "Email & pesan palsu mencuri data pribadi",
+    "scam": "Penipuan Online",
+    "scam_desc": "Transfer uang ke penipu di marketplace",
+    "fake_jobs": "Lowongan Palsu",
+    "fake_jobs_desc": "Rekrutmen palsu meminta biaya atau data",
+    "fake_reviews": "Ulasan Palsu",
+    "fake_reviews_desc": "Rating dibuat bot untuk manipulasi pembeli",
+    "pinjol": "Pinjol Ilegal",
+    "pinjol_desc": "Pinjaman online ilegal dengan bunga mencekik",
+    "fake_links": "Link Berbahaya",
+    "fake_links_desc": "URL palsu menyebarkan malware",
+    "hoax": "Hoaks",
+    "hoax_desc": "Informasi palsu menyebar di WhatsApp & medsos",
+    "scam_calls": "Panggilan Penipuan",
+    "scam_calls_desc": "Social engineering via telepon"
+  },
+  "why": {
+    "title": "Kenapa Trustify?",
+    "desc": "AI security companion untuk perlindungan digital harianmu.",
+    "ai_detection": "AI Behavioral Detection",
+    "ai_detection_desc": "Deteksi pola penipuan menggunakan kecerdasan buatan",
+    "trust_score": "TrustScore System",
+    "trust_score_desc": "Skor kepercayaan 0-100 untuk setiap analisis",
+    "community": "Community Intelligence",
+    "community_desc": "Database ancaman dari komunitas pengguna",
+    "realtime": "Real-time Alerts",
+    "realtime_desc": "Notifikasi ancaman terbaru secara langsung",
+    "recommendations": "AI Recommendations",
+    "recommendations_desc": "Saran dan alternatif lebih aman"
+  },
+  "features": {
+    "title": "Semua Fitur Perlindungan",
+    "desc": "Ekosistem keamanan digital lengkap dalam satu aplikasi.",
+    "scamshield_desc": "Cek rekening, nomor WA, dan link mencurigakan",
+    "smartcontract_desc": "Analisis dokumen & kontrak yang rumit",
+    "imagetruth_desc": "Deteksi gambar palsu dan hasil edit",
+    "reviewguard_desc": "Identifikasi ulasan palsu dari bot",
+    "callalert_desc": "Proteksi dari panggilan scam",
+    "hoaxlens_desc": "Deteksi berita hoaks dan broadcast palsu",
+    "pinjolcheck_desc": "Analisis risiko pinjaman online",
+    "lowonganaman_desc": "Verifikasi lowongan kerja asli",
+    "trustscore_desc": "Sistem skor kepercayaan global",
+    "hotnews_desc": "Tren ancaman digital terkini"
+  },
+  "trends": {
+    "title": "Hot Scam Trends",
+    "desc": "Waspadai modus penipuan terbaru yang sedang marak.",
+    "badge_trending": "Trending",
+    "badge_new": "Baru",
+    "badge_alert": "Waspada"
+  },
+  "dashboard": {
+    "greeting_morning": "Selamat pagi",
+    "greeting_afternoon": "Selamat siang",
+    "greeting_evening": "Selamat malam",
+    "subtitle": "Tetap aman di dunia digital. Cek ancaman hari ini.",
+    "search_placeholder": "Ketik nomor rekening, nomor WA, URL, atau teks mencurigakan...",
+    "search_btn": "Analisa",
+    "trust_overview": "TrustScore Anda",
+    "recent_scans": "Riwayat Pemeriksaan",
+    "security_tips": "Tips Keamanan",
+    "hot_alerts": "Alert Terkini",
+    "no_scans": "Belum ada pemeriksaan. Mulai cek sekarang!",
+    "quick_actions": "Aksi Cepat"
+  },
+  "analysis": {
+    "analyzing": "Sedang menganalisa...",
+    "complete": "Analisis Selesai",
+    "trust_score": "TrustScore",
+    "risk_level": "Tingkat Risiko",
+    "red_flags": "Tanda Bahaya",
+    "recommendations": "Rekomendasi",
+    "safe": "Aman",
+    "warning": "Peringatan",
+    "danger": "Berbahaya",
+    "summary": "Ringkasan",
+    "details": "Detail Analisis"
+  },
+  "upload": {
+    "title": "Upload File",
+    "desc": "Drag & drop atau klik untuk memilih file",
+    "supported": "Mendukung: PDF, JPG, PNG, Screenshot",
+    "btn": "Pilih File"
+  },
+  "common": {
+    "check": "Periksa",
+    "analyze": "Analisa",
+    "back": "Kembali",
+    "clear": "Hapus",
+    "copy": "Salin",
+    "share": "Bagikan",
+    "loading": "Memuat...",
+    "or": "atau",
+    "example": "Contoh",
+    "see_all": "Lihat Semua",
+    "learn_more": "Pelajari Lebih",
+    "read_more": "Baca Selengkapnya",
+    "close": "Tutup",
+    "home": "Beranda"
+  },
+  "chat": {
+    "title": "CS Trustify",
+    "online": "Online",
+    "placeholder": "Ketik pesan...",
+    "send": "Kirim",
+    "greeting": "Halo! Ada yang bisa saya bantu terkait keamanan digital Anda hari ini?"
+  },
+  "help": {
+    "title": "Panduan Penggunaan",
+    "desc": "Cara menggunakan fitur-fitur keamanan di Trustify",
+    "scamshield_guide": "Masukkan nomor WA, rekening, atau link mencurigakan untuk melihat skor risikonya.",
+    "wifisecure_guide": "Masukkan nama WiFi publik (SSID) sebelum Anda terhubung untuk mendeteksi potensi penyadapan.",
+    "hoaxlens_guide": "Salin dan tempel pesan broadcast atau artikel berita untuk dicek kebenarannya.",
+    "trustscore_guide": "TrustScore adalah rata-rata skor keamanan Anda. Semakin tinggi skor, semakin aman."
+  },
+  "footer": {
+    "about": "Tentang",
+    "privacy": "Privasi",
+    "contact": "Kontak",
+    "terms": "Syarat",
+    "tagline": "Melindungi masyarakat Indonesia di era digital.",
+    "rights": "Hak cipta dilindungi."
+  }
+}
