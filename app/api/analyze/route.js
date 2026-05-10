@@ -31,11 +31,14 @@ PENTING: Balas HANYA dengan format JSON valid berikut (tanpa markdown blok), jan
     });
 
     const responseText = response.text().trim();
+    console.log("Gemini Raw Response:", responseText);
     let parsedResult;
     try {
-        // Strip markdown code blocks if Gemini returns them despite instruction
-        const jsonStr = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
-        parsedResult = JSON.parse(jsonStr);
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+        throw new Error("No JSON found");
+    }
+    parsedResult = JSON.parse(jsonMatch[0]);
     } catch (e) {
         console.error("Failed to parse Gemini output:", responseText);
         return new Response(JSON.stringify({ error: 'AI output parse error' }), { status: 500 });
