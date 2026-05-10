@@ -1,6 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import { supabase } from '../../../lib/supabase';
-
+export const runtime = 'nodejs';
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
