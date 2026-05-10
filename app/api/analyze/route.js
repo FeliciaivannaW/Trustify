@@ -57,10 +57,7 @@ Balas HANYA JSON valid:
       ],
     });
 
-    const responseText =
-      typeof response.text === 'function'
-        ? await response.text()
-        : response.text;
+    const responseText = response.text;
 
     console.log('Gemini Response:', responseText);
 
