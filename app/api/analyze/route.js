@@ -1,6 +1,8 @@
 import { GoogleGenAI } from '@google/genai';
 import { supabase } from '../../../lib/supabase';
+
 export const runtime = 'nodejs';
+
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
@@ -10,16 +12,39 @@ export async function POST(req) {
     const { text, type, deviceId } = await req.json();
 
     if (!text || text.length < 3) {
-      return new Response(
-        JSON.stringify({
+      return Response.json(
+        {
           error: 'Text too short',
-        }),
-        { status: 400 }
+        },
+        {
+          status: 400,
+        }
       );
     }
 
+    const prompt = `
+Anda adalah AI keamanan siber bernama Trustify.
+
+Analisa teks berikut untuk mendeteksi scam,
+phishing,
+hoax,
+atau penipuan.
+
+Balas HANYA JSON valid:
+
+{
+  "score": 0,
+  "riskLevel": "safe",
+  "redFlags": [],
+  "recommendations": []
+}
+
+Teks:
+${text}
+`;
+
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
 
       contents: [
         {
@@ -27,30 +52,7 @@ export async function POST(req) {
 
           parts: [
             {
-              text: `
-Anda adalah AI keamanan siber.
-
-Analisa teks berikut.
-
-Balas HANYA JSON valid:
-
-{
-  "score": 0-100,
-  "riskLevel": "safe/warning/danger",
-  "redFlags": ["..."],
-  "recommendations": ["..."]
-}
-`,
-            },
-          ],
-        },
-
-        {
-          role: 'user',
-
-          parts: [
-            {
-              text: text,
+              text: prompt,
             },
           ],
         },
@@ -67,40 +69,34 @@ Balas HANYA JSON valid:
       throw new Error('No JSON found');
     }
 
-    const parsedResult = JSON.parse(jsonMatch[0]);
+    const parsed = JSON.parse(jsonMatch[0]);
 
-    const safeResult = {
-      score: parsedResult.score || 0,
-      riskLevel: parsedResult.riskLevel || 'warning',
-      redFlags: parsedResult.redFlags || [],
-      recommendations: parsedResult.recommendations || [],
+    const result = {
+      score: parsed.score || 0,
+      riskLevel: parsed.riskLevel || 'warning',
+      redFlags: parsed.redFlags || [],
+      recommendations: parsed.recommendations || [],
     };
 
     await supabase.from('scans').insert({
       device_id: deviceId || 'anonymous',
       type,
       snippet: text.substring(0, 50),
-      score: safeResult.score,
-      risk_level: safeResult.riskLevel,
-      red_flags: safeResult.redFlags,
-      recommendations: safeResult.recommendations,
+      score: result.score,
+      risk_level: result.riskLevel,
+      red_flags: result.redFlags,
+      recommendations: result.recommendations,
     });
 
-    return new Response(JSON.stringify(safeResult), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return Response.json(result);
 
   } catch (error) {
-    console.error('Analyze API Error:', error);
+    console.error(error);
 
-    return new Response(
-      JSON.stringify({
-        error: 'Internal Server Error',
-        details: error.message,
-      }),
+    return Response.json(
+      {
+        error: error.message,
+      },
       {
         status: 500,
       }

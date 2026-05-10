@@ -14,8 +14,12 @@ export async function POST(req) {
 
     if (!image) {
       return Response.json(
-        { error: 'No image uploaded' },
-        { status: 400 }
+        {
+          error: 'No image uploaded',
+        },
+        {
+          status: 400,
+        }
       );
     }
 
@@ -23,19 +27,12 @@ export async function POST(req) {
 
     const base64 = Buffer.from(bytes).toString('base64');
 
-    const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
-
-      contents: [
-        {
-          role: 'user',
-
-          parts: [
-            {
-              text: `
+    const prompt = `
 Analisa gambar ini.
 
-Deteksi apakah gambar tampak palsu,
+Deteksi apakah gambar screenshot transfer,
+resi,
+atau bukti pembayaran ini tampak palsu,
 hasil editan,
 atau mencurigakan.
 
@@ -47,7 +44,18 @@ Balas HANYA JSON valid:
   "redFlags": [],
   "recommendations": []
 }
-`,
+`;
+
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.0-flash',
+
+      contents: [
+        {
+          role: 'user',
+
+          parts: [
+            {
+              text: prompt,
             },
 
             {
@@ -63,7 +71,7 @@ Balas HANYA JSON valid:
 
     const responseText = response.text;
 
-    console.log(responseText);
+    console.log('Gemini Image Response:', responseText);
 
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
 
@@ -71,9 +79,14 @@ Balas HANYA JSON valid:
       throw new Error('No JSON found');
     }
 
-    const result = JSON.parse(jsonMatch[0]);
+    const parsed = JSON.parse(jsonMatch[0]);
 
-    return Response.json(result);
+    return Response.json({
+      score: parsed.score || 0,
+      riskLevel: parsed.riskLevel || 'warning',
+      redFlags: parsed.redFlags || [],
+      recommendations: parsed.recommendations || [],
+    });
 
   } catch (error) {
     console.error(error);
