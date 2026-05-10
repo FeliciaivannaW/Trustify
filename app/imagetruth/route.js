@@ -1,5 +1,7 @@
 import { GoogleGenAI } from '@google/genai';
 
+export const runtime = 'nodejs';
+
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
@@ -11,17 +13,15 @@ export async function POST(req) {
     const image = formData.get('image');
 
     if (!image) {
-      return new Response(
-        JSON.stringify({
-          error: 'No image uploaded',
-        }),
+      return Response.json(
+        { error: 'No image uploaded' },
         { status: 400 }
       );
     }
 
     const bytes = await image.arrayBuffer();
 
-    const base64Image = Buffer.from(bytes).toString('base64');
+    const base64 = Buffer.from(bytes).toString('base64');
 
     const response = await ai.models.generateContent({
       model: 'gemini-1.5-flash',
@@ -35,15 +35,17 @@ export async function POST(req) {
               text: `
 Analisa gambar ini.
 
-Deteksi apakah gambar screenshot transfer, bukti pembayaran, atau resi ini tampak palsu, editan, manipulasi, atau mencurigakan.
+Deteksi apakah gambar tampak palsu,
+hasil editan,
+atau mencurigakan.
 
 Balas HANYA JSON valid:
 
 {
-  "score": 0-100,
-  "riskLevel": "safe/warning/danger",
-  "redFlags": ["..."],
-  "recommendations": ["..."]
+  "score": 0,
+  "riskLevel": "safe",
+  "redFlags": [],
+  "recommendations": []
 }
 `,
             },
@@ -51,7 +53,7 @@ Balas HANYA JSON valid:
             {
               inlineData: {
                 mimeType: image.type,
-                data: base64Image,
+                data: base64,
               },
             },
           ],
@@ -59,12 +61,9 @@ Balas HANYA JSON valid:
       ],
     });
 
-    const responseText =
-      typeof response.text === 'function'
-        ? await response.text()
-        : response.text;
+    const responseText = response.text;
 
-    console.log('Gemini Image Response:', responseText);
+    console.log(responseText);
 
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
 
@@ -72,23 +71,17 @@ Balas HANYA JSON valid:
       throw new Error('No JSON found');
     }
 
-    const parsedResult = JSON.parse(jsonMatch[0]);
+    const result = JSON.parse(jsonMatch[0]);
 
-    return new Response(JSON.stringify(parsedResult), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return Response.json(result);
 
   } catch (error) {
-    console.error('ImageTruth API Error:', error);
+    console.error(error);
 
-    return new Response(
-      JSON.stringify({
-        error: 'Internal Server Error',
-        details: error.message,
-      }),
+    return Response.json(
+      {
+        error: error.message,
+      },
       {
         status: 500,
       }
