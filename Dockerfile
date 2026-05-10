@@ -7,6 +7,8 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+ENV NEXT_PUBLIC_SUPABASE_URL="https://vmhycdhjeelivjiypfbd.supabase.co"
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtaHljZGhqZWVsaXZqaXlwZmJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzNDA2NTEsImV4cCI6MjA5MzkxNjY1MX0.iHM_MplAg_xEv8Q2YbawbXFFFO7Oc7iqgMai8HMBzGo"
 RUN npm install
 
 # Rebuild the source code only when needed
